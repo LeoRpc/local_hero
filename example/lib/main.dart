@@ -14,7 +14,7 @@ class _LocalHeroApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LocalHeroScope(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 5000),
       createRectTween: (begin, end) {
         return RectTween(begin: begin, end: end);
       },
@@ -92,6 +92,7 @@ class _Tile extends StatelessWidget {
   Widget build(BuildContext context) {
     return LocalHero(
       tag: model.text!,
+      belowTag: model.text! == '17' ? '0' : null,
       child: GestureDetector(
         onTap: onTap,
         child: _RawTile(
