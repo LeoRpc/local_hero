@@ -61,6 +61,23 @@ class _LocalHeroScopeState extends State<LocalHeroScope>
   final Map<Object, _LocalHeroTracker> trackers = <Object, _LocalHeroTracker>{};
 
   @override
+  void didUpdateWidget(LocalHeroScope oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.onlyAnimateRemount != oldWidget.onlyAnimateRemount) {
+      throw UnimplementedError(
+          'onlyAnimateRemount cannot be updated (workarround: create a new LocalHeroScope with a different key)');
+    }
+
+    trackers.forEach(
+      (key, lht) => lht.controller
+        ..duration = widget.duration
+        ..createRectTween = widget.createRectTween
+        ..curve = widget.curve,
+    );
+  }
+
+  @override
   LocalHeroController track(BuildContext context, LocalHero localHero,
       {Object? belowTag, Object? aboveTag}) {
     final _LocalHeroTracker tracker = trackers.putIfAbsent(
