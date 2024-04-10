@@ -120,13 +120,13 @@ class _LocalHeroScopeState extends State<LocalHeroScope>
       overlayEntry: overlayEntry,
     );
 
-    tracker.addOverlay(
-      context,
-      below: belowTag != null ? trackers[belowTag]?.overlayEntry : null,
-      above: aboveTag != null ? trackers[aboveTag]?.overlayEntry : null,
-    );
+    tracker.addOverlay(context,
+        below: getOverlay(belowTag), above: getOverlay(aboveTag));
     return tracker;
   }
+
+  @override
+  OverlayEntry? getOverlay(Object? tag) => trackers[tag]?.overlayEntry;
 
   @override
   void untrack(LocalHero localHero) {
@@ -165,6 +165,8 @@ abstract class LocalHeroScopeState {
       {Object? belowTag, Object? aboveTag});
 
   void untrack(LocalHero localHero);
+
+  OverlayEntry? getOverlay(Object? tag);
 }
 
 class _LocalHeroTracker {
